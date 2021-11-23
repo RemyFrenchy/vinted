@@ -119,6 +119,7 @@ router.put("/offer/update/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+//************************************************************* modif test
 //Créer une route pour permettre aux créateurs des annonces de supprimer (méthode HTTP delete).
 
 router.delete("/offer/delete/:id", isAuthenticated, async (req, res) => {
@@ -135,7 +136,9 @@ router.delete("/offer/delete/:id", isAuthenticated, async (req, res) => {
 
     await offerToDelete.delete();
 
-    res.status(200).json({ message: "L'annonce a été supprimée" });
+    res
+      .status(200)
+      .json({ message: "L'annonce a été definitivement supprimée" });
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ error: error.message });
