@@ -45,10 +45,12 @@ router.post("/user/signup", async (req, res) => {
           account: newUser.account,
         });
       } else {
-        res.status(409).json({ message: "This email already has an account" });
+        res
+          .status(409)
+          .json({ message: "Un compte existe déjà avec cet email" });
       }
     } else {
-      res.status(400).json({ message: "Missing username parameter" });
+      res.status(400).json({ message: "Paramétre manquant" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -76,10 +78,10 @@ router.post("/user/login", async (req, res) => {
         });
       } else {
         // Sinon ===> Unauthorized
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(401).json({ message: "Accés non autorisé" });
       }
     } else {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Accés non autorisé" });
     }
   } catch (error) {
     res.status(400).json({ message: error.message });

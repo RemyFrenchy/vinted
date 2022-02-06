@@ -2,12 +2,15 @@ const express = require("express");
 const formidable = require("express-formidable");
 const mongoose = require("mongoose");
 const cloudinary = require("cloudinary").v2;
+const cors = require("cors");
 
-//installation de dotenv packagr pour cacher les infos dans le code comme les key et api secret par exemple
+//installation de dotenv package pour cacher les infos - code - key - api...
 require("dotenv").config();
 
 const app = express();
 app.use(formidable());
+
+app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -22,6 +25,10 @@ const userRoutes = require("./routes/user");
 app.use(userRoutes);
 const offerRoutes = require("./routes/offer");
 app.use(offerRoutes);
+
+app.get("/", (req, res) => {
+  res.json("API Vinted");
+});
 
 app.all("*", (req, res) => {
   res.status(404).json({ message: "Page not found !" });
