@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const isAuthenticated = require("../middlewares/isAuthenticated");
 
+const morgan = require("morgan");
 const formidable = require("express-formidable");
 const cors = require("cors");
 const stripe = require("stripe")(
@@ -10,9 +11,11 @@ const stripe = require("stripe")(
 const app = express();
 app.use(formidable());
 app.use(cors());
+app.use(mogan("dev"));
 
 app.post("/payment", isAuthenticated, async (req, res) => {
   const stripeToken = req.fields.stripeToken;
+  res.json("TEST");
 
   const response = await stripe.charges.create({
     amount: 5000,
